@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <style>
+            .image {
+                display: block;
+                margin-top: 600px;
+                width: 400px;
+                height: 200px;
+                border: 1px solid black;
+            }
+        </style>
+    </head>
+    <body>
+        <img id="image1" class="image" data-img="https://placeimg.com/100/100" />
+        <img id="image2" class="image" data-img="https://placeimg.com/200/200" />
+        <img id="image3" class="image" data-img="https://placeimg.com/300/300" />
+        <img id="image4" class="image" data-img="https://placeimg.com/350/350" />
+        <img id="image5" class="image" data-img="https://placeimg.com/500/500" />
+        
+        <script>
+            let options = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.25
+            }
+
+            let callback = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting
+                    && entry.target.className === "image") {
+                        let imageUrl = entry.target.getAttribute('data-img');
+
+                        if (imageUrl) {
+                            entry.target.src = imageUrl;
+                            observer.unobserve(entry.target);
+                        }
+                    }
+                    
+                });
+            }
+            let observer = new IntersectionObserver(callback, options);
+            observer.observe(document.querySelector('#image1'))
+            observer.observe(document.querySelector('#image2'))
+            observer.observe(document.querySelector('#image3'))
+            observer.observe(document.querySelector('#image4'))
+            observer.observe(document.querySelector('#image5'))
+        </script>    
+    </body>
+</html>

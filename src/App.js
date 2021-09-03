@@ -1,42 +1,81 @@
-console.log("app is running!");
+import SearchInput from './components/SearchInput.js'
+import SearchResult from './components/SearchResult.js'
+import ImageInfo from './components/ImageInfo.js'
 
-class App {
-  $target = null;
-  data = [];
+import { api } from './api.js'
 
-  constructor($target) {
-    this.$target = $target;
+export default class App {
+
+  constructor($app) {
 
     this.searchInput = new SearchInput({
-      $target,
-      onSearch: keyword => {
-        api.fetchCats(keyword).then(({ data }) => this.setState(data));
+      $app,
+      onSearch: async (keyword) => {
+        try {
+          const res = await api.fetchCats(keyword);
+          this.searchResult.setState(res.data);
+        } catch (e) {
+          console.log(e);
+        }
       }
     });
 
     this.searchResult = new SearchResult({
-      $target,
-      initialData: this.data,
-      onClick: image => {
+      $app,
+      initialData: [],
+      onClick: async (image) => {
+        const data = await api.fetchCat(image.id);
+
+        if (data) {
+          const { temperament, origin }  = data.data;
+          image = {...image, 
+                  temperament, 
+                  origin}
+        }
+        
         this.imageInfo.setState({
           visible: true,
           image
         });
       }
+
     });
 
     this.imageInfo = new ImageInfo({
-      $target,
+      $app,
       data: {
         visible: false,
         image: null
+      },
+
+      onClose: () => {
+        this.imageInfo.setState({
+          data: {
+            visible: false,
+            image: null
+          }
+        });
       }
     });
+
+    this.init();
+
+    document.addEventListener("keyup", e => {
+      if (this.imageInfo.data.visible && e.key === "Escape") {
+        this.imageInfo.onClose();
+      }
+    })
   }
 
-  setState(nextData) {
-    console.log(this);
-    this.data = nextData;
-    this.searchResult.setState(nextData);
+  async init () {
+    try {
+
+      const data = await api.fetchRandomCats();
+      if (data) {
+        this.searchResult.setState(data.data);
+      }
+    } catch (e) {
+      console.log(e);
+    }
   }
 }
