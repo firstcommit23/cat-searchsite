@@ -1,33 +1,34 @@
-import { api } from '../api.js'
-
 export default class ImageInfo {
-    constructor({ $app, data, onClose }) {
+
+    constructor({ $app, data }) {
       this.$target = document.createElement('div');
-      this.$target.className = "ImageInfo";
+      this.$target.className = "ImageInfo Modal";
       $app.appendChild(this.$target);
       
       this.data = data;
-      this.onClose = onClose;
 
       this.$target.addEventListener("click", e => {
         const $closeBtn = e.target.closest('.close');
-        
-        if ($closeBtn) {
-          onClose();
+
+        if ($closeBtn || e.target.className !== 'content-wrapper') {
+          this.setState({visible:false});
         }
       })
   
+      // modal fade-out시 이벤트 리스너도 삭제
+      document.addEventListener("keyup", e => this.onKeyDown(e));
       this.render();
     }
   
     setState(nextData) {
       this.data = nextData;
+
       this.render();
     }
   
     render() {
       if (this.data.visible) {
-        const { id, name, url, temperament, origin } = this.data.image;
+        const { name, url, temperament, origin } = this.data.image;
   
         this.$target.innerHTML = `
           <div class="content-wrapper">
@@ -41,10 +42,21 @@ export default class ImageInfo {
               <div>태생: ${origin}</div>
             </div>
           </div>`;
-        this.$target.style.display = "block";
+        this.$target.classList.add("fade-in");
+        this.$target.classList.remove("fade-out");
+
       } else {
-        this.$target.style.display = "none";
+        this.$target.classList.remove("fade-in");
+        this.$target.classList.add("fade-out");
+        this.$target.ontransitionend = () => this.$target.remove();
+
+        document.removeEventListener("keyup", this.onKeyDown());
       }
     }
+    
+    onKeyDown = (e) => {
+      e && e.key === 'Escape' && this.setState({visible:false});
+    };
+
   }
   

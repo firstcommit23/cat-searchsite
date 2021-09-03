@@ -28,12 +28,12 @@ export default class SearchResult {
     }
   
     render() {
-      console.log(this.data)
       this.$target.innerHTML = this.data.length ? this.data
         .map(
           (cat, index) => `
             <div class="item" data-index="${index}">
               <img src=${cat.url} alt=${cat.name} />
+              <div class="title">${cat.name}</div>
             </div>
           `
         )
