@@ -1,7 +1,11 @@
 ## 프로그래머스 [고양이 검색사이트] 테스트 과제 작성중입니다.
 
-['2021 Dev-Matching: 웹 프론트엔드 개발자(상반기)' 기출 문제 해설](https://programmers.co.kr/skill_check_assignments/4)
+[[프론트엔드] 고양이 사진 검색 사이트](https://programmers.co.kr/skill_check_assignments/4)
 
+라이브러리 없이 vanilla javascript만을 사용하여 과제물 완성하기!
+
+
+## Demo URL : https://jemizem.github.io/cat-searchsite/
 
 ## 디렉토리 구조
 
@@ -25,8 +29,7 @@
 └── index.html
 ```
 
-
-#### 목록 작업 (2021.9.4) (*진한글씨 필수구현사항)
+#### 작업 목록 (2021.9.4) (*진한 글씨 필수구현사항)
 - 시멘틱 태그 사용
 - [완료] 반응형 적용(이미지 목록 갯수, 상세모달 너비)
 - 다크모드
@@ -46,3 +49,4 @@
 - 랜던 고양이 배너 섹션 추가 (5개 슬라이드)
 - **status code에 따라 에러메세지 분리**  
 - 리펙토링
+- JEST 맛보기
