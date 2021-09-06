@@ -36,7 +36,13 @@ export default class App {
         }
       },
       onClick: e => {
-        this.searchInput.$target.value = ""
+        const { input } = e.target.dataset;
+
+        if ( input === "text" ) {
+          e.target.value = ""
+        } else if ( input === "randomBtn" ) {
+          this.fetchRandomCats();
+        }
       }
     });
 
@@ -56,6 +62,7 @@ export default class App {
                     origin}
           }
           
+          loading && loading.$target.remove();
           new ImageInfo({
             $app,
             data: {
@@ -76,11 +83,13 @@ export default class App {
 
 
 
-    this.init();
+    this.fetchRandomCats();
 
   }
 
-  async init () {
+  
+
+  async fetchRandomCats () {
     const loading = new Loading();
     try {
 

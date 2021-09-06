@@ -3,6 +3,7 @@ export default class ImageInfo {
     constructor({ $app, data }) {
       this.$target = document.createElement('div');
       this.$target.className = "ImageInfo Modal";
+      this.$target.style.opacity = 0;
       $app.appendChild(this.$target);
       
       this.data = data;
@@ -10,7 +11,7 @@ export default class ImageInfo {
       this.$target.addEventListener("click", e => {
         const $closeBtn = e.target.closest('.close');
 
-        if ($closeBtn || e.target.className !== 'content-wrapper') {
+        if ( $closeBtn || (!$closeBtn && !e.target.closest('.content-wrapper'))) {
           this.setState({visible:false});
         }
       })

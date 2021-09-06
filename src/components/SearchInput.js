@@ -1,9 +1,9 @@
+
 export default class SearchInput {
 
   constructor({ $app, onSearch, onClick }) {
-    this.$target = document.createElement('input');
-    this.$target.className = 'SearchInput';
-    this.$target.placeholder = "고양이를 검색해보세요.";
+    this.$target = document.createElement('section');
+    this.$target.className = 'SearchSection';
     $app.appendChild(this.$target);
 
     this.$target.addEventListener("keyup", e => {
@@ -18,14 +18,19 @@ export default class SearchInput {
 
     this.focusOnSearchInput();
 
-    this.$target.addEventListener("click", e => onClick());
+    this.$target.addEventListener("click", e => onClick(e));
   }
 
   focusOnSearchInput() {
     this.$target.focus();
   }
 
-  render() {}
+  render() {
+    this.$target.innerHTML = `
+      <input type="text" class="SearchInput" placeholder="고양이를 검색해보세요." data-input="text" />
+      <button class="randomSearchButton" data-input="randomBtn">🐱 랜덤 고양이</button>
+    `;
+  }
 
   
 

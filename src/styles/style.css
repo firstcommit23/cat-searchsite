@@ -49,12 +49,21 @@
     display: block;
   }
   
+  .SearchSection {
+    display: flex;
+  }
+
   .SearchInput {
     width: 100%;
     font-size: 40px;
     padding: 10px 15px;
   }
   
+  .randomSearchButton {
+    width: 150px;
+    padding: 10px 15px;
+  }
+
   .ImageInfo {
     position: fixed;
     left: 0;
@@ -161,7 +170,6 @@
       color: var(--font);
     }
   }
- 
 
   @media only screen and (max-width: 992px) {
     .SearchResult {
