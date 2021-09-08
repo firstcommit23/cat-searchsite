@@ -2,7 +2,7 @@ export default class ImageInfo {
 
     constructor({ $app, data }) {
       this.$target = document.createElement('div');
-      this.$target.className = "ImageInfo Modal";
+      this.$target.className = "ImageInfo Modal fade-in";
       this.$target.style.opacity = 0;
       $app.appendChild(this.$target);
       
@@ -43,8 +43,7 @@ export default class ImageInfo {
               <div>태생: ${origin}</div>
             </div>
           </div>`;
-        this.$target.classList.add("fade-in");
-        this.$target.classList.remove("fade-out");
+       // this.$target.classList.add("fade-in");
 
       } else {
         this.$target.classList.remove("fade-in");

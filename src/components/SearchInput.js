@@ -1,7 +1,7 @@
 
 export default class SearchInput {
 
-  constructor({ $app, onSearch, onClick }) {
+  constructor({ $app, state={}, onSearch, onClick }) {
     this.$target = document.createElement('section');
     this.$target.className = 'SearchSection';
     $app.appendChild(this.$target);
@@ -12,6 +12,7 @@ export default class SearchInput {
       }
     })
 
+    this.state = state;
     this.onSearch = onSearch;
     this.onClick = onClick;
     this.render();
@@ -21,14 +22,27 @@ export default class SearchInput {
     this.$target.addEventListener("click", e => onClick(e));
   }
 
+  setState(nextState) {
+    this.state = nextState;
+
+    this.render();
+  }
+
   focusOnSearchInput() {
-    this.$target.focus();
+    document.querySelector('.SearchInput').focus();
   }
 
   render() {
     this.$target.innerHTML = `
-      <input type="text" class="SearchInput" placeholder="고양이를 검색해보세요." data-input="text" />
-      <button class="randomSearchButton" data-input="randomBtn">🐱 랜덤 고양이</button>
+      <div class="searchInputArea">
+        <input type="text" class="SearchInput" placeholder="고양이를 검색해보세요." data-input="text" value="${this.state.keyword}" />
+        <button class="randomSearchButton" data-input="randomBtn">🐱 랜덤 고양이</button>
+      </div>
+      <div class="recentSearch">
+        ${this.state.keywords?.map((keyword, index) => {
+          return `<span class="keywordItem" data-input="keywordSearch" data-keyword="${keyword}">${keyword} <button data-input="keywordDelete">x</button></span>`
+        }).join('')}
+      </div>
     `;
   }
 
