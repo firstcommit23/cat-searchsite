@@ -8,6 +8,7 @@ export default class DarkMode {
         this.$target.innerHTML = '🌚';
 
         $app.appendChild(this.$target);
+        
         this.$target.addEventListener('click', e => {
             this.toggleTheme();
         })
