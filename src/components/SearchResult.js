@@ -32,7 +32,7 @@ export default class SearchResult {
         .map(
           (cat, index) => `
             <div class="item" data-index="${index}">
-              <img src=${cat.url} alt=${cat.name} />
+              <img src="${cat.url}" alt="${cat.name}" />
               <div class="title">${cat.name}</div>
             </div>
           `

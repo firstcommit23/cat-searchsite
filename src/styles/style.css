@@ -38,15 +38,17 @@
     width: 100%;
   }
 
-  .SearchResult .title {
-    display: none;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+  .SearchResult .item:hover {
+    background: rgba(0, 0, 0, 0.8);
   }
-  
-  .SearchResult .title:hover {
-    display: block;
+
+  .SearchResult .item:hover .title{
+    opacity: 1;
+  }
+
+  .SearchResult .title {
+    opacity: 0;
+    width: 100%;
   }
   
   .SearchSection {
