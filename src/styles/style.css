@@ -201,8 +201,39 @@
   margin-right: 3px;
 }
 
+
+body {
+  --black: #111;
+  --white: #fff;
+  --primary: #1976d2;
+  --error: #f44336;
+  --warning: #ff9800;
+  --success: #4caf50;
+
+  background-color: var(--white);
+  color: var(--black);
+  margin: 20px;
+  transition: background 500ms ease-in-out, color 200ms ease;
+}
+
+body[data-theme='light'] {
+  --black: #111;
+  --white: #fff;
+  --error: #f44336;
+  --warning: #ff9800;
+  --success: #4caf50;
+}
+
+body[data-theme='dark'] {
+  --black: #fff;
+  --white: #111;
+  --error: #f44336;
+  --warning: #ff9800;
+  --success: #4caf50;
+}
+
   /* dark mode 처리 */
-  @media (prefers-color-scheme: dark) {
+  /* @media (prefers-color-scheme: dark) {
     body {
       --bg: #000;
       --font: #fff;
@@ -210,6 +241,10 @@
       background-color: var(--bg);
       color: var(--font);
     }
+  } */
+
+  .toggleMode {
+    font-size: 32px;
   }
 
   @media only screen and (max-width: 992px) {

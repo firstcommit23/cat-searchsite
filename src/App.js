@@ -5,12 +5,16 @@ import Loading from './components/Loading.js'
 
 import { api } from './api.js'
 import LocalStorage from './utils/LocalStorage.js'
+import DarkMode from './components/DarkMode.js'
 
 export default class App {
 
   
   constructor($app) {
     this.$app = $app;
+
+    this.darkMode = new DarkMode({$app});
+    
     this.searchInput = new SearchInput({
       $app,
       state: {
