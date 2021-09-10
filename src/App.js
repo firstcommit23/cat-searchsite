@@ -14,7 +14,7 @@ export default class App {
     this.$app = $app;
 
     this.darkMode = new DarkMode({$app});
-    
+
     this.searchInput = new SearchInput({
       $app,
       state: {
@@ -84,29 +84,36 @@ export default class App {
       initialData: [],
       onClick: async (image) => {
 
+        this.imageInfo = new ImageInfo({
+          $app,
+          data: {
+            visible: false
+          },
+        });
+        
         const loading = new Loading();
         try {
           const data = await api.fetchCat(image.id);
   
           if (data) {
             const { temperament, origin }  = data.data;
-            image = {...image, 
-                    temperament, 
-                    origin}
+            image = {
+              ...image, 
+              temperament, 
+              origin
+            }
           }
           
           loading && loading.$target.remove();
-          new ImageInfo({
-            $app,
-            data: {
-              visible: true,
-              image
-            },
-      
-          });
+          this.imageInfo.setState({
+            ...this.imageInfo.data,
+            image: image,
+            visible: true
+          })
   
         } catch (e) {
           console.log(e);
+          this.imageInfo.closeModal();
         } finally {
           loading && loading.$target.remove();
         }

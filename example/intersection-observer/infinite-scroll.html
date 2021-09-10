@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .imageList{
+                display: flex;
+                flex-direction: column;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="imageList">
+            <img id="image1" class="image" src="https://placeimg.com/100/100" />
+            <img id="image2" class="image" src="https://placeimg.com/200/200" />
+            <img id="image3" class="image" src="https://placeimg.com/300/300" />
+            <img id="image4" class="image" src="https://placeimg.com/350/350" />
+            <img id="image5" class="image" src="https://placeimg.com/500/500" />
+        </div>
+        
+        <script>
+
+            const callback = (entries, observer) => {
+                // 마지막 요소가 다 보여진게 아니라면 return
+                if (!entries[0].isIntersecting) return;
+
+                loadImage();
+                
+                // 마지막 요소의 관찰자는 관측 중단한다. (스크롤을 반대로 했을 때 재실행 막기 위해)
+                observer.unobserve(entries[0].target);
+            };
+
+            const intersectionObserver = new IntersectionObserver(callback, {threshold: 0});
+                
+            const loadImage = () => {
+
+                // 재호출하고 다시 옵저버 붙이기
+                for (let i=1; i<= 5; i++) {
+                    const $newImage = document.createElement('img');
+                    $newImage.className = "image";
+                    $newImage.src = `https://placeimg.com/${i}00/${i}00`;
+                    document.querySelector('.imageList').appendChild($newImage);
+
+                    if (i === 5) {
+                        intersectionObserver.observe($newImage);
+                    }
+                }
+            }
+
+            window.addEventListener("load", e => {
+
+                const rootChildren = document.querySelector('.imageList').children;
+                const lastChild = rootChildren[rootChildren.length-1];
+                
+                // start observing (이미지의 마지막 요소에 관찰자 붙이기)
+                intersectionObserver.observe(lastChild);
+            });
+        </script>
+    </body>
+</html>
+
+  

@@ -2,7 +2,8 @@ export default class ImageInfo {
 
     constructor({ $app, data }) {
       this.$target = document.createElement('div');
-      this.$target.className = "ImageInfo Modal fade-in";
+      this.$target.className = "ImageInfo Modal";
+      this.$target.style.transition = "opacity 300ms";
       this.$target.style.opacity = 0;
       $app.appendChild(this.$target);
       
@@ -12,7 +13,7 @@ export default class ImageInfo {
         const $closeBtn = e.target.closest('.close');
 
         if ( $closeBtn || (!$closeBtn && !e.target.closest('.content-wrapper'))) {
-          this.setState({visible:false});
+          this.closeModal();
         }
       })
   
@@ -25,6 +26,15 @@ export default class ImageInfo {
       this.data = nextData;
 
       this.render();
+    }
+    
+    closeModal() {
+
+      this.$target.classList.remove("fade-in");
+      this.$target.classList.add("fade-out");
+      this.$target.ontransitionend = () => this.$target.remove();
+
+      document.removeEventListener("keyup", this.onKeyDown());
     }
   
     render() {
@@ -43,19 +53,12 @@ export default class ImageInfo {
               <div>태생: ${origin}</div>
             </div>
           </div>`;
-       // this.$target.classList.add("fade-in");
-
-      } else {
-        this.$target.classList.remove("fade-in");
-        this.$target.classList.add("fade-out");
-        this.$target.ontransitionend = () => this.$target.remove();
-
-        document.removeEventListener("keyup", this.onKeyDown());
+        this.$target.classList.add("fade-in");
       }
     }
     
     onKeyDown = (e) => {
-      e && e.key === 'Escape' && this.setState({visible:false});
+      e && e.key === 'Escape' && this.closeModal();
     };
 
   }
