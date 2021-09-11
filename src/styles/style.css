@@ -176,7 +176,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -266,6 +266,9 @@ body[data-theme='dark'] {
   @media only screen and (max-width: 576px) {
     .SearchResult {
       display: block;
+    }
+    .ImageInfo .content-wrapper {
+      width: 100%;
     }
   }
 

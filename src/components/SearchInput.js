@@ -6,12 +6,6 @@ export default class SearchInput {
     this.$target.className = 'SearchSection';
     $app.appendChild(this.$target);
 
-    this.$target.addEventListener("keyup", e => {
-      if (e.key === 'Enter') {
-        onSearch(e.target.value);
-      }
-    })
-
     this.state = state;
     this.onSearch = onSearch;
     this.onClick = onClick;
@@ -20,6 +14,13 @@ export default class SearchInput {
     this.focusOnSearchInput();
 
     this.$target.addEventListener("click", e => onClick(e));
+
+    this.$target.addEventListener("keypress", e => {
+      if (e.key === 'Enter') {
+        this.onSearch(e.target.value);
+      }
+    })
+
   }
 
   setState(nextState) {

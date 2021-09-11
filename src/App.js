@@ -35,17 +35,17 @@ export default class App {
           const recent = LocalStorage.get('keywords') || []
           const findIndex = recent?.findIndex(word => word === keyword);
 
-           if (!~findIndex) {
-             if (recent.length === 5) recent.pop();
-           } else {
-             // 기존 동일 키워드 검색 결과가 있을 경우 삭제 후 재입력
-             recent.splice(findIndex, 1);
-           }
+          if (!~findIndex) {
+            if (recent.length === 5) recent.pop();
+          } else {
+            // 기존 동일 키워드 검색 결과가 있을 경우 삭제 후 재입력
+            recent.splice(findIndex, 1);
+          }
 
-           recent.unshift(keyword)
+          recent.unshift(keyword)
 
-           LocalStorage.set('keywords', recent);
-           this.searchInput.setState({...this.searchInput.state, keywords: recent});
+          LocalStorage.set('keywords', recent);
+          this.searchInput.setState({keyword, keywords: recent});
         } catch (e) {
           console.log(e);
         } finally {

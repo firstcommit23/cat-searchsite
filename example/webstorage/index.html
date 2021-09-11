@@ -1,0 +1,13 @@
+<html>
+    <head></head>
+    <body>
+        여기서 중요한 점은 storage 이벤트가 이벤트를 발생시킨 스토리지를 제외하고 스토리지에서 접근 가능한 window 객체 전부에서 일어난다는 사실입니다.
+        <script>
+            window.onstorage = event => {
+                if (event.key != 'now') return;
+                alert(event.key + ':' + event.newValue + " at " + event.url);
+            }
+            localStorage.setItem('now', Date.now());
+        </script>
+    </body>
+</html>
